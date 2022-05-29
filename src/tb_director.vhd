@@ -13,6 +13,7 @@ architecture sim of tb_director is
     signal count : std_logic_vector(15 downto 0) := x"0000";
     signal left  : std_logic_vector(15 downto 0) := x"4640";
     signal right : std_logic_vector(15 downto 0) := x"000F";
+    signal ena   : std_logic := '1';
     signal rst   : std_logic := '1';
     signal clk   : std_logic := '0';
 
@@ -23,6 +24,7 @@ begin
         count => count,
         left  => left,
         right => right,
+        ena => ena,
         rst   => rst,
         clk   => clk);
 

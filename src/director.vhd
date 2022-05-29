@@ -8,6 +8,7 @@ entity director is
         count : in std_logic_vector(15 downto 0);
         left  : in std_logic_vector(15 downto 0);
         right : in std_logic_vector(15 downto 0);
+        ena   : in std_logic;
         rst   : in std_logic;
         clk   : in std_logic);
 end entity director;
@@ -25,7 +26,7 @@ begin
             if rst = '1' then
                 state <= counterclockwise;
                 dir <= '0';
-            else
+            elsif ena = '1' then
                 case state is
 
                     when counterclockwise =>

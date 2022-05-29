@@ -13,30 +13,44 @@ end entity counter;
 
 architecture rtl of counter is
 
+    type state_t is (countup, countdown);
+    signal state : state_t;
+
     signal aux_count :std_logic_vector(15 downto 0);
 
 begin
-    process(clk) is
+
+    state_machine : process(clk) is
     begin
-        if (rst = '1') then aux_count <=  (others => '0');
-        elsif (ena = '1') then
-            if rising_edge(clk) then
-                if (dir = '1') then -- count up
-                    if(aux_count = x"464f") then
-                        aux_count <= (others => '0');
-                    else
-                        aux_count <= std_logic_vector(unsigned(aux_count) + 1);
-                    end if;
-                else -- count down
-                    if(aux_count = x"0000") then
-                        aux_count <= x"464f";
-                    else
-                        aux_count <= std_logic_vector(unsigned(aux_count) - 1);
-                    end if;
+        if rising_edge(clk) then
+            state <= countup;
+            if rst = '1' then aux_count <= (others => '0');
+            elsif ena = '1' then
+                if dir = '0' then
+                    state <= countdown;
                 end if;
+
+                case state is
+
+                    when countup =>
+                        if(aux_count = x"464f") then
+                            aux_count <= (others => '0');
+                        else
+                            aux_count <= std_logic_vector(unsigned(aux_count) + 1);
+                        end if;
+
+                    when countdown =>
+                        if(aux_count = x"0000") then
+                            aux_count <= x"464f";
+                        else
+                            aux_count <= std_logic_vector(unsigned(aux_count) - 1);
+                        end if;
+
+                end case;
             end if;
         end if;
-    end process;
-    count <= aux_count;
-end architecture ;
+    end process state_machine;
 
+    count <= aux_count;
+
+end architecture rtl;
