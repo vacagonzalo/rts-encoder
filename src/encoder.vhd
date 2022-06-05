@@ -38,7 +38,7 @@ begin
         count => wire_count,
         left  => left,
         right => right,
-        ena   => wire_ena,
+        ena   => ena,
         rst   => rst,
         clk   => clk);
 
@@ -47,7 +47,7 @@ begin
         output => wire_dir,
         mode   => mode,
         ext    => wire_ext,
-        ena    => wire_ena,
+        ena    => ena,
         rst    => rst,
         clk    => clk);
 
