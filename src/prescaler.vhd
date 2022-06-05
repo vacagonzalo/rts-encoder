@@ -27,9 +27,10 @@ begin
             elsif ena = '1' then
                 if counter = div then
                     counter <= (others => '0');
-                    aux <= not aux;
+                    aux <= '1';
                 else
                     counter <= std_logic_vector(unsigned(counter) + 1);
+                    aux <= '0';
                 end if;
             end if;
         end if;
