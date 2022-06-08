@@ -7,7 +7,7 @@ end entity tb_counter;
 
 architecture sim of tb_counter is
     -- outputs
-    signal count : std_logic_vector(15 downto 0);
+    signal count : std_logic_vector(31 downto 0);
 
     -- inputs
     signal rst : std_logic := '1';

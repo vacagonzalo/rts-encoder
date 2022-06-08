@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity counter is
     port(
-        count : out std_logic_vector(15 downto 0);
+        count : out std_logic_vector(31 downto 0);
         rst : in std_logic;
         ena : in std_logic;
         dir : in std_logic;
@@ -16,32 +16,35 @@ architecture rtl of counter is
     type state_t is (countup, countdown);
     signal state : state_t;
 
-    signal aux_count :std_logic_vector(15 downto 0);
+    signal aux_count :std_logic_vector(31 downto 0);
 
 begin
 
     state_machine : process(clk) is
     begin
         if rising_edge(clk) then
-            state <= countup;
-            if rst = '1' then aux_count <= (others => '0');
+            if rst = '1' then 
+                aux_count <= (others => '0');
+                state <= countup;
             elsif ena = '1' then
                 if dir = '0' then
                     state <= countdown;
+                else
+                    state <= countup;
                 end if;
 
                 case state is
 
                     when countup =>
-                        if(aux_count = x"464f") then
+                        if(aux_count = x"0000464f") then
                             aux_count <= (others => '0');
                         else
                             aux_count <= std_logic_vector(unsigned(aux_count) + 1);
                         end if;
 
                     when countdown =>
-                        if(aux_count = x"0000") then
-                            aux_count <= x"464f";
+                        if(aux_count = x"00000000") then
+                            aux_count <= x"0000464f";
                         else
                             aux_count <= std_logic_vector(unsigned(aux_count) - 1);
                         end if;

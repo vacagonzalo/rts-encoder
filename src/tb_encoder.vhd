@@ -6,10 +6,10 @@ end entity tb_encoder;
 
 architecture sim of tb_encoder is
 
-       signal count : std_logic_vector(15 downto 0);
-       signal left  : std_logic_vector(15 downto 0) := x"0000";
-       signal right : std_logic_vector(15 downto 0) := x"000F";
-       signal speed : std_logic_vector(15 downto 0) := x"F000";
+       signal count : std_logic_vector(31 downto 0);
+       signal lim_a : std_logic_vector(31 downto 0) := x"00000000";
+       signal lim_b : std_logic_vector(31 downto 0) := x"0000000F";
+       signal speed : std_logic_vector(31 downto 0) := x"0000F000";
        signal mode  : std_logic := '0';
        signal ena   : std_logic := '0';
        signal rst   : std_logic := '1';
@@ -19,8 +19,8 @@ begin
     dut : entity work.encoder(hierarchical)
     port map(
         count => count,
-        left  => left,
-        right => right,
+        lim_a => lim_a,
+        lim_b => lim_b,
         speed => speed,
         mode  => mode,
         ena   => ena,

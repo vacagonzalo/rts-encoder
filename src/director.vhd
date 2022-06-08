@@ -5,9 +5,9 @@ use ieee.numeric_std.all;
 entity director is
     port(
         dir   : out std_logic;
-        count : in std_logic_vector(15 downto 0);
-        left  : in std_logic_vector(15 downto 0);
-        right : in std_logic_vector(15 downto 0);
+        count : in std_logic_vector(31 downto 0);
+        lim_a : in std_logic_vector(31 downto 0);
+        lim_b : in std_logic_vector(31 downto 0);
         ena   : in std_logic;
         rst   : in std_logic;
         clk   : in std_logic);
@@ -31,14 +31,14 @@ begin
 
                     when counterclockwise =>
                         dir <= '0';
-                        if count = left then
+                        if count = lim_a then
                             state <= clockwise;
                             dir <= '1';
                         end if;
 
                     when clockwise =>
                         dir <= '1';
-                        if count = right then
+                        if count = lim_b then
                             state <= counterclockwise;
                             dir <= '0';
                         end if;

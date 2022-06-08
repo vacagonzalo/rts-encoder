@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity prescaler is
     port(
         output : out std_logic;
-        div : in std_logic_vector(15 downto 0);
+        div : in std_logic_vector(31 downto 0);
         ena : in std_logic;
         rst : in std_logic;
         clk : in std_logic);
@@ -13,7 +13,7 @@ end entity prescaler;
 
 architecture rtl of prescaler is
 
-    signal counter : std_logic_vector(15 downto 0);
+    signal counter : std_logic_vector(31 downto 0);
     signal aux     : std_logic;
 
 begin

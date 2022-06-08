@@ -9,7 +9,7 @@ architecture sim of tb_prescaler is
     signal output : std_logic;
 
     -- inputs
-    signal div : std_logic_vector(15 downto 0) := x"000F";
+    signal div : std_logic_vector(31 downto 0) := x"00010000";
     signal ena : std_logic := '0';
     signal rst : std_logic := '1';
     signal clk : std_logic := '0';
